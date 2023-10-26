@@ -9,6 +9,16 @@ contract MyContract is Ownable {
     IERC20 public eCedi;
     IERC20 public eNaira;
 
+    event Deposit(uint amount, string currency, address user);
+    event Withdrawal(uint amount, string currency, address user);
+    event Conversion(
+        string from,
+        string to,
+        uint fromAmount,
+        uint toAmount,
+        address user
+    );
+
     constructor() Ownable(msg.sender) {
         eCedi = new Currency("eCedi", "UGHS");
         eNaira = new Currency("eNaira", "NGNS");
@@ -24,6 +34,8 @@ contract MyContract is Ownable {
             revert("Invalid currency");
         }
         token.transferFrom(address(this), msg.sender, amount);
+
+        emit Deposit(amount, currency, msg.sender);
     }
 
     function withdraw(uint256 amount, string memory currency) public onlyOwner {
@@ -36,6 +48,8 @@ contract MyContract is Ownable {
             revert("Invalid currency");
         }
         token.transferFrom(msg.sender, address(this), amount);
+
+        emit Withdrawal(amount, currency, msg.sender);
     }
 
     function convert(
@@ -61,5 +75,7 @@ contract MyContract is Ownable {
         }
         tokenFrom.transferFrom(msg.sender, address(this), amount);
         tokenTo.transfer(msg.sender, amount);
+
+        emit Conversion(from, to, amount, amount, msg.sender);
     }
 }
