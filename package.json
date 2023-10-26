@@ -1,0 +1,23 @@
+{
+  "name": "vault",
+  "version": "1.0.0",
+  "description": "A decentralized vault for KYC data",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.ts --network polygonMumbai",
+    "verify": "hardhat verify --network polygonMumbai"
+  },
+  "author": "Mike Attara <mpyebattara@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^1.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.18.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
